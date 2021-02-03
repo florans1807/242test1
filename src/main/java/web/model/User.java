@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 // Для того, чтобы в дальнейшим использовать класс User в Spring Security, он должен реализовывать интерфейс UserDetails.
@@ -15,12 +16,18 @@ import java.util.Set;
 public class User implements UserDetails {
 
     @Id
-    @Column(name = "Id")
+    @Column(name = "user_id")
     @GeneratedValue
     private int id;
 
-    @Column(name = "username")
+    @Column(name = "firstname")
     private String name;
+
+    @Column(name = "secondname")
+    private String surname;
+
+    @Column(name="username")
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -28,12 +35,16 @@ public class User implements UserDetails {
     @Column(name = "enabled")
     private double enabled;
 
-
-
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Role> roles;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Set<Role> getAuthorities() {
         return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
@@ -41,9 +52,17 @@ public class User implements UserDetails {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String getUsername() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -66,8 +85,13 @@ public class User implements UserDetails {
         return true;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }
 
