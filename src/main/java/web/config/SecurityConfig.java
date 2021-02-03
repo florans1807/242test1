@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //2
         http.authorizeRequests()
-                .antMatchers("/login").permitAll() // доступность всем
+                .antMatchers("/").permitAll() // доступность всем
                 .antMatchers("/user").hasAnyRole("ROLE_USER", "ROLE_ADMIN")
                 .antMatchers("/admin**").hasRole("ROLE_ADMIN")
                 .and().formLogin()
@@ -79,7 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-// tregulov
+        // tregulov
 
         /*http.csrf().disable();
         http.authorizeRequests() //авторизация по ролям

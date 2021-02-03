@@ -3,6 +3,8 @@ package web.model;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 // Этот класс реализует интерфейс GrantedAuthority, в котором необходимо переопределить только один метод getAuthority() (возвращает имя роли).
@@ -13,15 +15,50 @@ import java.util.List;
 public class Role implements GrantedAuthority {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
-    @GeneratedValue
     private int id;
 
     @Column(name = "authority")
     private String role;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role"
+            , joinColumns = @JoinColumn(name = "role_id")
+            , inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<User> users;
+
+    public void AddUserToRole(User user) {
+        if (users == null) {
+            users = new ArrayList<>();
+        }
+        users.add(user);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public Role() { }
 

@@ -4,9 +4,7 @@ package web.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 // Для того, чтобы в дальнейшим использовать класс User в Spring Security, он должен реализовывать интерфейс UserDetails.
 // UserDetails можно представить, как адаптер между БД пользователей и тем что требуется Spring Security внутри SecurityContextHolder
@@ -16,8 +14,8 @@ import java.util.Set;
 public class User implements UserDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    @GeneratedValue
     private int id;
 
     @Column(name = "firstname")
@@ -32,11 +30,78 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "enabled")
-    private double enabled;
+    /*@Column(name = "enabled")
+    private double enabled;*/
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role"
+            , joinColumns = @JoinColumn(name = "user_id")
+            , inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private Set<Role> roles;
+
+    public void AddRoleToUser(Role role) {
+        if (roles == null) {
+            roles = new LinkedHashSet<>();
+        }
+        roles.add(role);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public User() {
+    }
+
+    public User(int id, String name, String surname, String username, String password) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.username = username;
+        this.password = password;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 
     @Override
     public Set<Role> getAuthorities() {
@@ -58,7 +123,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return username;
     }
 
     public void setName(String name) {

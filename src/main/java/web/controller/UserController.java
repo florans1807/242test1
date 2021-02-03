@@ -23,27 +23,31 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/login")
-    public String getLoginPage() {
+    //1
+    @GetMapping()
+    public String getLoginPage() {           // okay
         return "login";
     }
 
+    //2
     @GetMapping("/user")
     public String getUserInfo(@ModelAttribute("user") User user, Model model) {
         model.addAttribute("user", user);
-        return "show";
+        return "user_info";
     }
 
-    @GetMapping("/{id}")
+    //3
+    @GetMapping("/admin")
+    public String getAdminInfo(Model model) {
+        model.addAttribute("users", userService.getAll());
+        return "admin_info";
+    }
+
+
+    @GetMapping("/admin/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.get(id));
         return "show";
-    }
-
-    @GetMapping("/admin")
-    public String index(Model model) {
-        model.addAttribute("users", userService.getAll());
-        return "obj";
     }
 
 
@@ -52,7 +56,7 @@ public class UserController {
         return "new";
     }
 
-    @PostMapping()
+    @PostMapping("/admin")
     public String create(@ModelAttribute("user") User user) {
         userService.add(user);
         return "redirect:/admin";
@@ -70,14 +74,14 @@ public class UserController {
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.delete(id);
         return "redirect:/admin";
     }
 
 
-   /* @GetMapping("/")
+    /*@GetMapping("/")
     public String getInfoForAllEmp() {
         return "viewForAllEmp";
     }
@@ -90,9 +94,9 @@ public class UserController {
     @GetMapping("/manager_info")
     public String getInfoForManagers() {
         return "viewForManager";
-    }*/
+    }
 
-    /*@RequestMapping(value = "hello", method = RequestMethod.GET)
+    @RequestMapping(value = "hello", method = RequestMethod.GET)
     public String printWelcome(ModelMap model) {
         List<String> messages = new ArrayList<>();
         messages.add("Hello!");
@@ -105,7 +109,6 @@ public class UserController {
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String loginPage() {
         return "login";
-    }
-*/
+    }*/
 }
 
