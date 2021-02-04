@@ -11,7 +11,6 @@ import web.service.UserServiceIn;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/")
 public class UserController {
@@ -44,7 +43,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/admin/{id}")
+   /* @GetMapping("/admin/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.get(id));
         return "show";
@@ -79,36 +78,7 @@ public class UserController {
         userService.delete(id);
         return "redirect:/admin";
     }
+*/
 
-
-    /*@GetMapping("/")
-    public String getInfoForAllEmp() {
-        return "viewForAllEmp";
-    }
-
-    @GetMapping("/hr_info")
-    public String getInfoForHR() {
-        return "viewForHR";
-    }
-
-    @GetMapping("/manager_info")
-    public String getInfoForManagers() {
-        return "viewForManager";
-    }
-
-    @RequestMapping(value = "hello", method = RequestMethod.GET)
-    public String printWelcome(ModelMap model) {
-        List<String> messages = new ArrayList<>();
-        messages.add("Hello!");
-        messages.add("I'm Spring MVC-SECURITY application");
-        messages.add("5.2.0 version by sep'19 ");
-        model.addAttribute("messages", messages);
-        return "hello";
-    }
-
-    @RequestMapping(value = "login", method = RequestMethod.GET)
-    public String loginPage() {
-        return "login";
-    }*/
 }
 

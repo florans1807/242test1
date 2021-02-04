@@ -1,13 +1,9 @@
 package web.model;
 
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.*;
-
-// Для того, чтобы в дальнейшим использовать класс User в Spring Security, он должен реализовывать интерфейс UserDetails.
-// UserDetails можно представить, как адаптер между БД пользователей и тем что требуется Spring Security внутри SecurityContextHolder
 
 @Entity
 @Table(name="users")
@@ -30,9 +26,6 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    /*@Column(name = "enabled")
-    private double enabled;*/
-
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role"
@@ -41,31 +34,7 @@ public class User implements UserDetails {
     )
     private Set<Role> roles;
 
-    public void AddRoleToUser(Role role) {
-        if (roles == null) {
-            roles = new LinkedHashSet<>();
-        }
-        roles.add(role);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public User() {
-    }
+    public User() {}
 
     public User(int id, String name, String surname, String username, String password) {
         this.id = id;
@@ -74,17 +43,6 @@ public class User implements UserDetails {
         this.username = username;
         this.password = password;
     }
-
-
-
-
-
-
-
-
-
-
-
 
     public String getName() {
         return name;
@@ -157,6 +115,30 @@ public class User implements UserDetails {
     public void setId(int id) {
         this.id = id;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*public void AddRoleToUser(Role role) {
+        if (roles == null) {
+            roles = new LinkedHashSet<>();
+        }
+        roles.add(role);
+    }*/
+
 
 }
 

@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 
-// Этот класс реализует интерфейс GrantedAuthority, в котором необходимо переопределить только один метод getAuthority() (возвращает имя роли).
-// Имя роли должно соответствовать шаблону: «ROLE_ИМЯ», например, ROLE_USER.
-
 @Entity
 @Table(name="authorities")
 public class Role implements GrantedAuthority {
@@ -29,36 +26,6 @@ public class Role implements GrantedAuthority {
             , inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<User> users;
-
-    public void AddUserToRole(User user) {
-        if (users == null) {
-            users = new ArrayList<>();
-        }
-        users.add(user);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public Role() { }
 
@@ -87,4 +54,12 @@ public class Role implements GrantedAuthority {
     public void setRole(String role) {
         this.role = role;
     }
+
+
+    /*public void AddUserToRole(User user) {
+        if (users == null) {
+            users = new ArrayList<>();
+        }
+        users.add(user);
+    }*/
 }

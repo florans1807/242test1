@@ -17,9 +17,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-
 @Configuration
-@ComponentScan("web")
+//@ComponentScan("web")
+@ComponentScan(basePackages = {"web.dao", "web.service"})
 @EnableTransactionManagement
 @PropertySource(value = "classpath:db.properties")
 public class HibernateConfig {
@@ -30,7 +30,6 @@ public class HibernateConfig {
     public void setEnvironment(Environment environment) {
         this.environment = environment;
     }
-
     //1
     @Bean
     public DataSource dataSource() {
@@ -43,7 +42,6 @@ public class HibernateConfig {
 
         return dataSource;
     }
-
     //2
     @Bean
     public LocalContainerEntityManagerFactoryBean getEntityManagerFactoryBean() {
@@ -55,7 +53,6 @@ public class HibernateConfig {
         entityManagerFactoryBean.setJpaProperties(hibernateProperties());
         return entityManagerFactoryBean;
     }
-
     //3
     private Properties hibernateProperties() {
         Properties properties = new Properties();
