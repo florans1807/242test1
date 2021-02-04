@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserService implements UserServiceIn, UserDetailsService {
+public class UserDetailsServiceImpl implements UserServiceIn, UserDetailsService {
 
     private UserDao userDao;
 

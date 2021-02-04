@@ -18,8 +18,8 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-//@ComponentScan("web")
-@ComponentScan(basePackages = {"web.dao", "web.service"})
+@ComponentScan("web")
+//@ComponentScan(basePackages = {"web.dao", "web.service"})
 @EnableTransactionManagement
 @PropertySource(value = "classpath:db.properties")
 public class HibernateConfig {

@@ -24,14 +24,15 @@ public class UserController {
 
     //1
     @GetMapping()
-    public String getLoginPage() {           // okay
+    public String getLoginPage() {
         return "login";
     }
 
     //2
     @GetMapping("/user")
-    public String getUserInfo(@ModelAttribute("user") User user, Model model) {
-        model.addAttribute("user", user);
+    public String getUserInfo(@ModelAttribute("user") User user, Model model1, Model model2) {
+        model1.addAttribute("user", user);
+
         return "user_info";
     }
 
